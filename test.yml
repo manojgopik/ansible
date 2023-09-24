@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+    - name : running the first task
+      shell : whoami
+    - name : invoking test role
+      include_role :
+        name: test-role
+    - name : invoking debug role
+      include_role :
+        name: debug-role
+    - name : invoking test role
+      include_role :
+        name: test-role
+    - name : running the last task
+      shell : whoami
+###################################################################
+# All the registered handlers will get executed here
+# This will be after the entire playbook and before the post tasks
+###################################################################
+  pre_tasks:
+  - name: this is first pretask
+    shell: whoami
+  post_tasks:
+  - name: this is last post task
+    shell: whoami

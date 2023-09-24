@@ -1,0 +1,15 @@
+---
+# handlers file for debug-role
+- name: task2 handler
+  debug: msg="task2 handler"
+  listen: execute task2 handler
+
+- name: task1 handler
+  debug: msg="task1 handler"
+  listen: execute task1 handler
+
+- name: executing temp handler
+  file: 
+    path: /tmp/a.txt
+    state: absent
+  listen: execute temp handler

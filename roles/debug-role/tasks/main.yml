@@ -1,0 +1,49 @@
+---
+# tasks file for debug-role
+
+################################################################
+# This will mark the task1 handler to be executed at the end of 
+# the current playbook role
+################################################################
+- name: this is the role task1
+  shell:  echo test
+  changed_when: true
+  notify: "execute task1 handler"
+
+################################################################
+# Even though the notify is invoked but since the command doesnt
+# raise any change event, the handler will not be invoked
+################################################################
+- name: this is the role task1 but handler wont be invoked
+  shell:  echo test
+  notify: "execute task1 handler"
+
+################################################################
+# This will flush all the pending tasks
+# Until here whatever tasks were notified will execute now.
+################################################################
+- name: flushing all the pending handlers
+  meta: flush_handlers
+
+################################################################
+# Again registering the task1 handler to demonstrate the flush 
+# operation
+################################################################
+- name: once again calling task1 handler
+  shell:  echo test
+  changed_when: true
+  notify: "execute task1 handler"
+
+################################################################
+# Calling the handler task2 
+################################################################
+- name: once again calling task2 handler
+  shell:  echo test
+  changed_when: true
+  notify: "execute task2 handler"
+
+- name: creating a file temp
+  file: 
+    state: touch
+    path: /tmp/a.txt
+  notify: "execute temp handler"

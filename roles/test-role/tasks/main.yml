@@ -1,0 +1,10 @@
+---
+# tasks file for test-role
+################################################################
+# This will mark the task1 handler to be executed at the end of 
+# the current playbook role
+################################################################
+- name: this is the role task1
+  shell:  echo test
+  changed_when: true
+  notify: "execute task1 handler"

@@ -1,0 +1,6 @@
+---
+# handlers file for test-role
+
+- name: task1 handler
+  debug: msg="task1 handler for test-role"
+  listen: execute task1 handler
